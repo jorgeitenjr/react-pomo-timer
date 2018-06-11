@@ -1,0 +1,23 @@
+{
+    "extends": [
+      "react-app",
+      "prettier",
+      "prettier/flowtype",
+      "prettier/react",
+      "prettier/standard"
+  ],
+  "plugins": [
+    "react",    
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 120
+      }
+      ]
+    }
+  }
