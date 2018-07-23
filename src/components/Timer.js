@@ -1,35 +1,21 @@
-import React, { Component } from 'react';
-import TimerStyles from '../styles/Timer';
-import { convertToMinutesAndSeconds, getEndTime, getCurrentTime } from '../util';
+import React, {Component} from 'react';
+import styled from 'styled-components';
+import {TimerContext} from '../contexts/TimerProvider';
 
 class Timer extends Component {
-  state = {
-    initialValue: '',
-    defaultTimings: {
-      shortBreak: 5,
-      longBreak: 25,
-      pomo: 25,
-    },
+  render = () => {
+    const TimeWithStyle = styled.div`
+      font-size: 95px;
+      font-weight: 700;
+    `;
+    return (
+      <TimerContext.Consumer>
+        {({state}) => {
+          return <TimeWithStyle>{state.initialValue}</TimeWithStyle>;
+        }}
+      </TimerContext.Consumer>
+    );
   };
-  componentDidMount = () => this.startTimer();
-
-  startTimer = () => {
-    const endTime = getEndTime(this.state.defaultTimings.longBreak);
-    const interval = setInterval(() => {
-      let currentTime = getCurrentTime(endTime);
-      if (currentTime <= 0) {
-        clearInterval(interval);
-        currentTime = 0;
-      }
-      this.setState({ initialValue: convertToMinutesAndSeconds(currentTime) });
-    }, 1000);
-  };
-
-  render = () => (
-    <div>
-      <div style={TimerStyles.clock}>{this.state.initialValue}</div>
-    </div>
-  );
 }
 
 export default Timer;
