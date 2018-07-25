@@ -12,7 +12,7 @@ export const convertToMinutesAndSeconds = totalSeconds => {
   return `${addLeadingZero(minutes)}:${addLeadingZero(seconds)}`;
 };
 
-const convertMinutesToSeconds = minutes => minutes * 60 * 1000;
+const convertMinutesToSeconds = minutes => minutes * 1000;
 
 export const getEndTime = minutes => new Date().getTime() + convertMinutesToSeconds(minutes);
 

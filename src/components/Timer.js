@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {TimerContext} from '../contexts/TimerProvider';
+import {convertToMinutesAndSeconds} from '../util';
 
 class Timer extends Component {
   render = () => {
@@ -11,7 +12,7 @@ class Timer extends Component {
     return (
       <TimerContext.Consumer>
         {({state}) => {
-          return <TimeWithStyle>{state.initialValue}</TimeWithStyle>;
+          return <TimeWithStyle>{convertToMinutesAndSeconds(state.currentValue)}</TimeWithStyle>;
         }}
       </TimerContext.Consumer>
     );

@@ -13,11 +13,11 @@ const ButtonArea = () => {
   `;
   return (
     <TimerContext.Consumer>
-      {({startTimer}) => {
+      {({startTimer, stopTimer}) => {
         return (
           <ButtonAreaWithStyle>
             <Button label="START" style={{marginRight: '2%'}} onClick={startTimer} />
-            <Button label="STOP" style={{marginRight: '2%'}} />
+            <Button label="STOP" style={{marginRight: '2%'}} onClick={stopTimer} />
             <Button label="RESET" style={{backgroundColor: general.alternativeBackground}} />
           </ButtonAreaWithStyle>
         );

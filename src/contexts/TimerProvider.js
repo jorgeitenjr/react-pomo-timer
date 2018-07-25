@@ -1,30 +1,41 @@
 import React, {Component} from 'react';
-import {convertToMinutesAndSeconds, getEndTime, getCurrentTime} from '../util';
+import {getEndTime, getCurrentTime} from '../util';
 
 export const TimerContext = React.createContext();
 
 export default class TimerProvider extends Component {
-  state = {
-    initialValue: convertToMinutesAndSeconds(25 * 60),
-    defaultTimings: {
-      shortBreak: 5,
-      longBreak: 25,
-      pomo: 25,
-    },
-  };
+  constructor(props) {
+    super(props);
+    const longBreak = 25;
+    this.state = {
+      currentValue: longBreak * 60,
+      defaultTimings: {
+        shortBreak: 5,
+        longBreak: longBreak,
+        pomo: 25,
+      },
+      interval: null,
+      status: '',
+    };
+  }
 
   startTimer = () => {
-    const endTime = getEndTime(this.state.defaultTimings.longBreak);
+    const endTime = getEndTime(this.state.currentValue);
     const interval = setInterval(() => {
-      let currentTime = getCurrentTime(endTime);
-      if (currentTime <= 0) {
-        clearInterval(interval);
-        currentTime = 0;
+      if (this.state.status === 'running') {
+        let currentTime = getCurrentTime(endTime);
+        if (currentTime <= 0) {
+          clearInterval(interval);
+          currentTime = 0;
+        }
+        this.setState({currentValue: currentTime});
+      } else {
+        clearInterval(this.state.interval);
       }
-      this.setState({initialValue: convertToMinutesAndSeconds(currentTime)});
     }, 1000);
+    this.setState({interval, status: 'running'});
   };
-  stopTimer = () => {};
+  stopTimer = () => this.setState({status: ''});
   resetTimer = () => {};
   render = () => (
     <TimerContext.Provider
