@@ -36,7 +36,7 @@ export default class TimerProvider extends Component {
     this.setState({interval, status: 'running'});
   };
   stopTimer = () => this.setState({status: ''});
-  resetTimer = () => {};
+  resetTimer = () => this.setState({status: '', currentValue: this.state.defaultTimings.longBreak * 60});
   render = () => (
     <TimerContext.Provider
       value={{
